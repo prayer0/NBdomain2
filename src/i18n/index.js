@@ -3,5 +3,5 @@ import zhHans from './zh-hans'
 
 export default {
   'en-us': enUS,
-  'zh-hans': zhHans
+  'zh-CN': zhHans
 }

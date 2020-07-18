@@ -55,6 +55,7 @@ export default {
         user:this.curDomain.pubKey,
         broadcast:true,
         price:0,
+        action:"notify",
         cmd_attrib:kv
       });
       this.$emit("hideAddChildDomain");

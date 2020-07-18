@@ -81,6 +81,7 @@ export default {
         product:"Update Subdomain",
         broadcast:true,
         price:0,
+        action:"notify",
         user:this.curDomain.pubKey,
         cmd_attrib:kv
       });

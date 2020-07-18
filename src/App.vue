@@ -15,6 +15,10 @@ export default {
       sessionStorage.setItem("store",JSON.stringify(this.$store.state));
     });
     this.$tool.ax = this.$axios;
+    let lang = this.$q.lang.getLocale();
+    console.log("language=",lang);
+    if(lang!="zh-CN")lang = "en-us";
+    this.$i18n.locale = lang;
   }
 }
 </script>

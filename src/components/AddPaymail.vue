@@ -106,6 +106,7 @@ export default {
         user: this.currentDomain.pubKey,
         detail: "Update Paymail+, user=" + name,
         broadcast: true,
+        action:"notify",
         cmd_attrib: attrib
       });
       this.$emit("closePaymail");

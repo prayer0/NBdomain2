@@ -21,7 +21,7 @@ export default {
       langs: [
         {
           label: "中文",
-          value: "zh-hans"
+          value: "zh-CN"
         },
         {
           label: "English",

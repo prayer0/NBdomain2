@@ -58,7 +58,10 @@ export default {
           return;
         }
       }
-      this.status = "verification failed";
+      if(res.code==400)
+        this.status = "user not found";
+      else
+        this.status = "verification failed";
     },
     async getDomainInfo(domain) {
       if (tools.validate_domain(domain) == false) {

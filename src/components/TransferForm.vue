@@ -39,6 +39,7 @@
             :hint="$t('message.expireDate')"
             :rules="[val => !!val || 'Field is required']"
           />
+          <div class="text-negative q-mb-md">{{terr}}</div>
         </q-tab-panel>
 
         <q-tab-panel name="accept">
@@ -91,7 +92,8 @@ export default {
       rPrice: 0,
       rExpire:null,
       rDomain: "",
-      error:""
+      error:null,
+      terr:null,
     };
   },
   computed: mapState({
@@ -104,9 +106,10 @@ export default {
         const tx = await this.$tool.getTX(txHash);
         console.log(tx);
         if(!tx){
-          this.error = "Transaction Not Found";
+          this.error = "Transaction Not Found or not confirmed";
           return;
         }
+        this.error = null;
         if (tx.out[0].o1 != "OP_RETURN" 
           | tx.out[0].s4 != "transfer"
         ){
@@ -128,6 +131,16 @@ export default {
     async payResult(res) {
       console.log("transfer result=");
       console.log(res);
+      let msg = "Successfully Accepted";
+      if(res.code==0||res.code==100){
+  
+      }else{
+        msg = "Failed to accept:"+res.message;
+      }
+      this.$q.dialog({
+            title: "Result",
+            message: msg
+          });
     },
     async onPriceChange() {
       const rate = await this.$tool.getExchangeRate();
@@ -136,9 +149,13 @@ export default {
     },
     async handleSubmit() {
       const { tab } = this;
+      console.log(tab);
       if (tab === "transfer") {
         const { receiver, askedPrice, expireDate } = this;
-        if (!receiver || !askedPrice || !expireDate) return;
+        if (!receiver || !askedPrice || !expireDate) {
+          this.terr = "Please fill the form";
+          return;
+        }
         const d1 = new Date(expireDate);
         this.$store.commit("global/setPayCmd", {
           action: "notify",
@@ -162,30 +179,41 @@ export default {
 
         this.$emit("transferDataComplete");
       } else {
+        console.log("1");
         if(this.error!=null || this.rPrice==0){
           if(this.rPrice==0) this.error = "Please Fetch Transfer txid !";
           return;
         }
-        
+        console.log("2");
+        const info = await this.$tool.get_domain(this.rDomain);
+        if(info.code!=0){
+          this.error = "error";
+          return;
+        }
+        const adminfee = this.rPrice>6000 ? this.rPrice*0.1:600;
         this.$store.commit("global/setPayCmd", {
           action: "notify",
           product: "NBdomain",
+          detail:"Accept:"+this.rDomain,
           broadcast: true,
-          price: askedPrice,
+          price: this.rPrice+adminfee,
           user: this.curDomain.pubKey,
           data: [
             this.$tool.getConfig(this.curDomain.tld).protocol,
             this.curDomain.nid,
             "accept",
-            txHash
+            this.txHash
           ],
           to: [
             {
-              address: this.$tool.getConfig(this.curDomain.tld).payAddress.admin,value:this.rPrice
+              address: info.obj.owner,value:this.r,value:this.rPrice,
+            },{
+              address: this.$tool.getConfig(this.curDomain.tld).payAddress.admin,value:adminfee
             }
           ],
           callback: this.payResult
         });
+        console.log("before emit");
         this.$emit("acceptDataComplete");
       }
     }

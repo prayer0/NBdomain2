@@ -20,6 +20,11 @@ const routes = [
         component: () => import('pages/free')
       },
       {
+        path: '/regok',
+        name: 'regok',
+        component: () => import('pages/regSuccess')
+      },
+      {
         path: '/auction',
         name: 'auction',
         component: () => import('pages/auction')

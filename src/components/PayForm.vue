@@ -50,7 +50,7 @@
     </q-card-section>
 
     <q-card-actions class="text-primary" align="right">
-      <q-btn flat :label="$t('message.cancel')" v-close-popup />
+      <q-btn flat :label="$t('message.cancel')" v-close-popup @click="onCancel"/>
       <q-btn flat :label="textConfirm" :loading="loading" @click="handlePay" />
     </q-card-actions>
   </q-card>
@@ -166,6 +166,12 @@ export default {
     }, 2000);
   },
   methods: {
+    onCancel(){
+      console.log("oncancel");
+      if (this.payCmd && this.payCmd.callback){
+        this.payCmd.callback({code:-1});
+      }
+    },
     handlePay() {
       //console.log(this.tab);
       if (this.success) {
@@ -201,7 +207,7 @@ export default {
         self.message = err.message;
       }
       if (self.payCmd && self.payCmd.callback) {
-        self.payCmd.callback(err,e);
+        self.payCmd.callback(err);
         this.closePayForm();
       }
     },

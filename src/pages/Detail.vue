@@ -78,7 +78,7 @@
           </q-expansion-item>
 
         <!--websites-->
-          <q-expansion-item class="q-mb-sm" style="background:rgba(4,99,111,0.15);">
+          <q-expansion-item v-if="false" class="q-mb-sm" style="background:rgba(4,99,111,0.15);">
             <template v-slot:header>
               <q-item-section>
                 <div

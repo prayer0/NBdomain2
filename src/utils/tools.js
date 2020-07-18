@@ -305,9 +305,10 @@ export default class tools {
             }
             if (cmd.user) { //attach identity
                 if (cmd.user == 'any')
-                    reqBody.to.push({ "protocol": "bitIdentity" });
+                    //reqBody.to.push({ "protocol": "bitIdentity" });
+                    reqBody.to.splice(1, 0, { "protocol": "bitIdentity" });
                 else
-                    reqBody.to.push({ "protocol": "bitIdentity", "value": { "public_key": cmd.user } });
+                    reqBody.to.splice(1,0,{ "protocol": "bitIdentity", "value": { "public_key": cmd.user } });
             }
             console.log("reqBody=");
             console.log(reqBody);
