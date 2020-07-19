@@ -191,6 +191,7 @@ export default {
           return;
         }
         const adminfee = this.rPrice>6000 ? this.rPrice*0.1:600;
+        const rTld = this.rDomain.split('.')[1];
         this.$store.commit("global/setPayCmd", {
           action: "notify",
           product: "NBdomain",
@@ -199,8 +200,8 @@ export default {
           price: this.rPrice+adminfee,
           user: this.curDomain.pubKey,
           data: [
-            this.$tool.getConfig(this.curDomain.tld).protocol,
-            this.curDomain.nid,
+            this.$tool.getConfig(rTld).protocol,
+            this.rDomain,
             "accept",
             this.txHash
           ],
