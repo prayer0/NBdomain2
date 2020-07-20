@@ -15,7 +15,8 @@ const SURL = {
     "reg_domain": auction_server + "/register_domain",
     "reply": auction_server + "/get_reply/",
     "notify": auction_server + "/notify",
-    "applyFree": auction_server + "/v1/free"
+    "applyFree": auction_server + "/v1/free",
+    "getID":auction_server + "/v1/getID"
 }
 const nbapi = new NBLib("https://manage.nbdomain.com/node/", "02a43685fc7613626164d36555f7bfee2adafa4f4d35d2816860c61aca15505c58");
 
@@ -83,7 +84,7 @@ export default class tools {
                 body: JSON.stringify(order)
             });
             const js = await res.json();
-            return js;
+            return js; 
 
         }
         static async getExchangeRate() {
@@ -92,9 +93,11 @@ export default class tools {
             return json;
         }
         static getIdentity(rawtx) {
-            if (BID.verifyID(rawtx) == false) return null;
-            const tx = bsv.Transaction(rawtx);
-            const bids = BID.getBitId(tx);
+            if (BID.verifyID(rawtx) == false) {
+                console.log("verifyID fail");
+                return null;
+            }
+            const bids = BID.getBitID(rawtx);
             return bids[0].publicKey;
         }
         static async new_domains() {

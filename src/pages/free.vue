@@ -39,6 +39,7 @@
           </q-card-section>
         </q-card>
       </div>
+    </div>
       <div class="row justify-center">
         <q-card flat bordered class="q-ma-sm note">
           <q-card-section>
@@ -52,6 +53,7 @@
           </q-card-section>
         </q-card>
       </div>
+       <div class="row justify-center ">
       <div class="q-pa-md row justify-around">
           <q-btn
             unelevated
@@ -68,11 +70,12 @@
             outline
             color="primary"
             :label="$t('message.check')"
-            @click="doCheck"
+            @click="onCheck"
             no-caps
           />
         </div>
-    </div>
+       </div>
+    
     <!------支付------->
     <q-dialog v-model="showPayForm" persistent>
       <pay-form @closePayForm="closePayForm" />
@@ -96,6 +99,29 @@ export default {
     };
   },
   methods: {
+    async getIDResult(result){
+      if (result.code != 0 && result.code!=100){
+        this.$q.notify(result.message);
+        return;
+      } 
+      const pubkey = this.$tool.getIdentity(result.rawtx);
+      console.log("pubKey=",pubkey);
+      if(pubkey){
+        const address = pubkey.toAddress().toString();
+        console.log("address=",address);
+        const res = await this.$tool.get_domains_by_address(address);
+          let msg = this.$t("message.nodomain");
+          for (let i = 0; i < res.obj.length; i++) {
+            const e = res.obj[i];
+            if (i == 0) msg = "";
+            msg += e.nid + "." + e.tld + "  ";
+          }
+          this.$q.dialog({
+            title: this.$t("message.yourDomain"),
+            message: msg
+          });
+      }
+    },
     async PayResult(result) {   
       console.log(result);
       this.noApply = false;
@@ -136,9 +162,9 @@ export default {
             console.log(config);
             this.$store.commit("global/setPayCmd", {
               cmd: "",
-              product: "Free Domain",
+              product: this.$t("message.freedomain"),
               user: "any",
-              detail: "Apply for Free Domain",
+              detail: this.$t("message.applyfreedomain"),
               broadcast: false,
               price: 1000000,
               action: "applyFree",
@@ -150,6 +176,20 @@ export default {
             this.applying = true;
             this.showPay();
         });
+    },
+    onCheck(){
+      this.$store.commit("global/setPayCmd", {
+              cmd: "",
+              product: this.$t("message.freedomain"),
+              user: "any",
+              detail: this.$t("message.getID"),
+              broadcast: false,
+              price: 600,
+              to:[],
+              action: "getID",
+              callback: this.getIDResult
+            });
+            this.showPay();
     },
     doCheck() {
       this.$q

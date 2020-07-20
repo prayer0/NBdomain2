@@ -130,6 +130,7 @@ export default {
   beforeDestroy(){
     console.log("before destroy");
     if (this.intervalID) {
+        console.log("clean interval",this.intervalID);
         clearInterval(this.intervalID);
       }
   },
@@ -164,6 +165,7 @@ export default {
           this.handleReply(reply);
       }
     }, 2000);
+    console.log("setInterval=",this.intervalID);
   },
   methods: {
     onCancel(){

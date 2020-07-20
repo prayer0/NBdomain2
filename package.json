@@ -14,7 +14,7 @@
   "dependencies": {
     "@quasar/extras": "^1.8.1",
     "axios": "^0.18.1",
-    "bitidentity": "^1.0.14",
+    "bitidentity": "^1.0.21",
     "bsv": "^1.5.3",
     "nblib": "^1.0.1",
     "qrcode.vue": "^1.7.0",

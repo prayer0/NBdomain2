@@ -3,6 +3,10 @@
 
 export default {
   message: {
+    applyfreedomain:"Apply for free domain",
+    nodomain:"No domain found",
+    yourDomain:"Your Domain",
+    getID:"Get Identity",
     create:"Create",
     personalDomain:"Personalized Domain",
     domaindes:"NBdomain is a blockchain based new domain system",

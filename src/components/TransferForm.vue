@@ -63,7 +63,7 @@
           <div class="q-mb-md">Domain: {{rDomain}}</div>
           <div class="q-mb-md">Price: {{rPrice}}</div>
           <div class="q-mb-md">Expire: {{rExpire}}</div>
-           <div class="text-negative q-mb-md">{{error}}</div>
+          <div class="text-negative q-mb-md">{{error}}</div>
         </q-tab-panel>
       </q-tab-panels>
     

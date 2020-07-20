@@ -1,5 +1,10 @@
 export default {
   message: {
+    applyfreedomain:"申请免费域名",
+    nodomain:"没找到域名",
+    yourDomain:"你的域名",
+    getID:"获取身份",
+    create:"建立",
     personalDomain:"个性化域名",
     domaindes:"NBdomain 是新型的区块链域名系统",
     sid:"使用 NBdomain 作为全球ID，使用各种区块链应用",
@@ -11,6 +16,7 @@ export default {
     freeapply:"免费申请",
     home:"主页",
     freeDomain:"免费域名",
+    ruleTitle:"免费域名规则:",
     freeRule1:"1. 免费域名是自增长的数字域名;",
     freeRule2:"2. 任何支持 Open Payment API 的钱包都可以申请免费域名;",
     freeRule3:"3. 域名申请免费，但是为了避免滥用，系统会收取小额手续费 (1000 sat);",
