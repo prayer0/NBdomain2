@@ -341,7 +341,7 @@ export default {
     async onRefresh() {
       const { currentDomain } = this;
       const self = this;
-      let result = await tools.get_domain(currentDomain.domain);
+      let result = await tools.get_domain(currentDomain.domain,true);
       const code = result.code;
       if (code == 0) {
         self.$store.commit("global/setDomainInfo", result);

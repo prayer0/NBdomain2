@@ -1,6 +1,6 @@
 import bsv from 'bsv';
 import BID from "bitIdentity";
-import NBLib from "nblib";
+import NBLIB from "nblib";
 import bitbus from "run-bitbus";
 
 
@@ -18,7 +18,12 @@ const SURL = {
     "applyFree": auction_server + "/v1/free",
     "getID":auction_server + "/v1/getID"
 }
-const nbapi = new NBLib("https://manage.nbdomain.com/node/", "02a43685fc7613626164d36555f7bfee2adafa4f4d35d2816860c61aca15505c58");
+NBLIB.config({
+	API:"https://manage.nbdomain.com/node/",
+	token:"02a43685fc7613626164d36555f7bfee2adafa4f4d35d2816860c61aca15505c58",
+	filepayKey:"44h9cKf4VHUvdpbRnG8KER1qCwx3oEjqho7TFBZv23BFgMtewE7k4kXPJbfv1EPQsi",
+	debug:true
+});
 
 const config = {
     "test": {
@@ -151,11 +156,11 @@ export default class tools {
             }
             return false;
         }
-        static async get_domain(domain) {
-            return await nbapi.readDomain(domain);
+        static async get_domain(domain,full=false) {
+            return await NBLIB.readDomain(domain,full);
         }
         static async get_domains_by_address(address) {
-            const res = await nbapi.getAll(address);
+            const res = await NBLIB.domainFromAddress(address);
             return res;
         }
         static randomString(length) {

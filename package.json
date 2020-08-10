@@ -16,7 +16,7 @@
     "axios": "^0.18.1",
     "bitidentity": "^1.0.21",
     "bsv": "^1.5.3",
-    "nblib": "^1.0.1",
+    "nblib": "^1.0.7",
     "qrcode.vue": "^1.7.0",
     "quasar": "^1.11.1",
     "run-bitbus": "^1.0.5",

@@ -2023,7 +2023,7 @@ bitcore-lib@^0.13.7:
     inherits "=2.0.1"
     lodash "=3.10.1"
 
-bitidentity@^1.0.21:
+bitidentity@^1.0.18, bitidentity@^1.0.21:
   version "1.0.21"
   resolved "https://registry.yarnpkg.com/bitidentity/-/bitidentity-1.0.21.tgz#471a9a137dfd4270d3a55f8e57c3d9745e255614"
   integrity sha512-gPhxd50bamNPqCSrrgO0NxsqwYONaeX1Q8ciUt4riCvFOpWCAydzk3BLyHkT3FCeRPIyYt3303biRqB2qCg9yA==
@@ -2237,7 +2237,7 @@ bsv-coinselect@^4.2.5:
   resolved "https://registry.yarnpkg.com/bsv-coinselect/-/bsv-coinselect-4.2.5.tgz#260e32b501ec36c0ac560c986c83e828ad6c7d3d"
   integrity sha512-WGfliK+a3yvIGLwL1/krMptrOBQqrJy1cyMwtalc4qB38+eRmoMhenwKL/bQ2Z2XwE367srB5ePHAVSxsscFiA==
 
-bsv@^1.5.3:
+bsv@^1.5.0, bsv@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/bsv/-/bsv-1.5.3.tgz#c6602a24c07741d3d01fc461e7399e1d5ce1708b"
   integrity sha512-aqswtGiAX3hRivUIsOCquNAFx5VJvMbDzaiWNoJgnjYRh+8jSNC6eOhVpgJBo43f7SUa2QiEQtANUP3RGiWFUQ==
@@ -4129,6 +4129,19 @@ filepay@^2.0.6:
   version "2.2.10"
   resolved "https://registry.yarnpkg.com/filepay/-/filepay-2.2.10.tgz#9787f227304a39c95d8c44c7067a90f42d0432e5"
   integrity sha512-J1LqP7tC+Mp7p3ZybGa27GuOE5GM0JC2TEVk1VvUTbN2Io+qO7YjZwGO+my5s29GUYsV9ZyyFvfZ5V8KfLeQ/g==
+  dependencies:
+    axios "^0.19.2"
+    bitcore-explorers "^1.0.1"
+    bsv "^1.5.3"
+    bsv-coinselect "^4.2.5"
+    buffer "^5.2.1"
+    mingo "^2.2.4"
+    text-encoder "0.0.4"
+
+filepay@^2.2.6:
+  version "2.2.12"
+  resolved "https://registry.yarnpkg.com/filepay/-/filepay-2.2.12.tgz#1bb3c4938205afddecab7636506faddfa863eaa0"
+  integrity sha512-iyUEU4Ga0bN5ZZ2nsYczDSZsmYVkE7eYLWmNmdHjxWs27ufGrUl8ekM+28mCXihgqXo3gj+Qnmzr3yv3Dj9X/Q==
   dependencies:
     axios "^0.19.2"
     bitcore-explorers "^1.0.1"
@@ -6189,6 +6202,14 @@ mimic-response@^1.0.0, mimic-response@^1.0.1:
   resolved "https://registry.yarnpkg.com/mimic-response/-/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
 
+minercraft@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/minercraft/-/minercraft-0.0.8.tgz#8969154b5e42baebc102dffacbe63214f08e8577"
+  integrity sha512-XAFBCp3EjuK6leagDkDQwavP4WFICI3FwbrwBcFWSAObPBzKROASSsG1Svf8J56Kt4WDJagMh+6X0jx6roat8Q==
+  dependencies:
+    axios "^0.19.2"
+    bsv "^1.5.0"
+
 mingo@^2.2.4:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/mingo/-/mingo-2.5.3.tgz#bed3db76ca9b2cc29ae1f1ff83e3a8797dc47758"
@@ -6362,10 +6383,15 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-nblib@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/nblib/-/nblib-1.0.1.tgz#9aeaeb754563fce8dcac5228d67f7f5ede9db6c1"
-  integrity sha512-hFOo/VErd23/WZFq0Z6y9jciBOKR1ZoCf8yxEnO4mOmB2Kf2RtIubf6cuKxh1OhS2u3mnis1yEQjhMRBI+jxxA==
+nblib@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/nblib/-/nblib-1.0.7.tgz#31d20ac3c07babd6faa9acfc706404809f02f760"
+  integrity sha512-CsZbiy5TY559DddP0KbOH86dPjfiSOzdc1xv369G9ZXsDx00QcnOFlosikJwkFMhhE5jNRWMSx9FWBsLry87YQ==
+  dependencies:
+    axios "^0.19.2"
+    bitidentity "^1.0.18"
+    filepay "^2.2.6"
+    minercraft "0.0.8"
 
 negotiator@0.6.2:
   version "0.6.2"

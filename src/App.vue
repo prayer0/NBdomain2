@@ -17,7 +17,7 @@ export default {
     this.$tool.ax = this.$axios;
     let lang = this.$q.lang.getLocale();
     console.log("language=",lang);
-    if(lang!="zh-CN")lang = "en-us";
+    if(lang!="zh-cn")lang = "en-us";
     this.$i18n.locale = lang;
   }
 }

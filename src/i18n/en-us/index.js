@@ -3,6 +3,15 @@
 
 export default {
   message: {
+    congrat:"Congratulations",
+    youown:"You have owned a NBdomain:",
+    whatnext:"What you can do next: ",
+    action1:"1. Use it to accept payment",
+    action2:"2. Create a blockchain website",
+    action3:"3. Use Apps that support NBdomain",
+    action4:"4. Join our community and build the blockchain based Internet together",
+    comingsoon:"Coming Soon",
+
     applyfreedomain:"Apply for free domain",
     nodomain:"No domain found",
     yourDomain:"Your Domain",
