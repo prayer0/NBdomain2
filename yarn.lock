@@ -2023,10 +2023,17 @@ bitcore-lib@^0.13.7:
     inherits "=2.0.1"
     lodash "=3.10.1"
 
-bitidentity@^1.0.18, bitidentity@^1.0.21:
+bitidentity@^1.0.21:
   version "1.0.21"
   resolved "https://registry.yarnpkg.com/bitidentity/-/bitidentity-1.0.21.tgz#471a9a137dfd4270d3a55f8e57c3d9745e255614"
   integrity sha512-gPhxd50bamNPqCSrrgO0NxsqwYONaeX1Q8ciUt4riCvFOpWCAydzk3BLyHkT3FCeRPIyYt3303biRqB2qCg9yA==
+  dependencies:
+    filepay "^2.0.6"
+
+bitidentity@^1.0.23:
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/bitidentity/-/bitidentity-1.0.31.tgz#27d840fcccce31f5fbf999d6112456c548e68ae0"
+  integrity sha512-y84TUZ5HIeIL6krowbEPdKCT3Bjeuf+OVQW5hkgcvm8YOMk30xniWG9ecvh4cJxmTRY+HeQUg68KcIFHeqtBYQ==
   dependencies:
     filepay "^2.0.6"
 
@@ -3610,7 +3617,20 @@ elliptic@=3.0.3:
     hash.js "^1.0.0"
     inherits "^2.0.1"
 
-elliptic@^6.0.0, elliptic@^6.5.2:
+elliptic@^6.0.0:
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.3.tgz#cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6"
+  integrity sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==
+  dependencies:
+    bn.js "^4.4.0"
+    brorand "^1.0.1"
+    hash.js "^1.0.0"
+    hmac-drbg "^1.0.0"
+    inherits "^2.0.1"
+    minimalistic-assert "^1.0.0"
+    minimalistic-crypto-utils "^1.0.0"
+
+elliptic@^6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.2.tgz#05c5678d7173c049d8ca433552224a495d0e3762"
   integrity sha512-f4x70okzZbIQl/NSRLkI/+tteV/9WqL98zx+SQ69KbXxmVrmjwsNUPn/gYJJ0sHvEak24cZgHIPegRePAtA/xw==
@@ -5922,7 +5942,12 @@ lodash@=3.10.1:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.12:
+lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.12:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
+lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -6383,15 +6408,17 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-nblib@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/nblib/-/nblib-1.0.7.tgz#31d20ac3c07babd6faa9acfc706404809f02f760"
-  integrity sha512-CsZbiy5TY559DddP0KbOH86dPjfiSOzdc1xv369G9ZXsDx00QcnOFlosikJwkFMhhE5jNRWMSx9FWBsLry87YQ==
+nblib@1.0.35:
+  version "1.0.35"
+  resolved "https://registry.yarnpkg.com/nblib/-/nblib-1.0.35.tgz#f8484ea39b74d2a6228fdcbd60fb8c283c3aa791"
+  integrity sha512-8Kngu48bqIYMG3AKmMC91WCwvTL3s2f6KSDnPwLBUmvyB28u9bKajvJjdECZWGA10QN+zhMPxtCnxKT3BDlZaQ==
   dependencies:
     axios "^0.19.2"
-    bitidentity "^1.0.18"
+    bitidentity "^1.0.23"
+    core-js "^3.6.4"
     filepay "^2.2.6"
     minercraft "0.0.8"
+    reconnecting-eventsource "^1.0.4"
 
 negotiator@0.6.2:
   version "0.6.2"
@@ -7775,6 +7802,11 @@ readdirp@~3.3.0:
   integrity sha512-zz0pAkSPOXXm1viEwygWIPSPkcBYjW1xU5j/JBh5t9bGCJwa6f9+BJa6VaB2g+b55yVrmXzqkyLf4xaWYM0IkQ==
   dependencies:
     picomatch "^2.0.7"
+
+reconnecting-eventsource@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/reconnecting-eventsource/-/reconnecting-eventsource-1.0.4.tgz#3261cc1e800fcb500607514d641bdb7c1d01b36b"
+  integrity sha512-rW6Q85xy8QjgVtX0MwiwKCZMPLNq1oK4xjthYg2d5FlXLHcFBOU3eFiLW/OxzSmBkff2oaV0BegpAjRs5zTlOQ==
 
 redent@^1.0.0:
   version "1.0.0"

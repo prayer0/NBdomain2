@@ -73,7 +73,7 @@ export default {
   methods: {
     handleUpdate() {
       let { key, val } = this;
-      console.log("key="+key+" val="+val);
+     /* console.log("key="+key+" val="+val);
       let kv = {};
       kv[key] = val;
       this.$store.commit('global/setPayCmd', {
@@ -84,14 +84,13 @@ export default {
         action:"notify",
         user:this.curDomain.pubKey,
         cmd_attrib:kv
-      });
+      });*/
+      this.$store.commit("global/setPayCmd", {
+        domain:this.curDomain.domain,
+        cmd: "key",
+        kv:{[key]:val}
+      })
       this.$emit('hideChildDomainUpdate');
-    },
-
-    hideVerificationForm(cmd) {
-      this.cmd = cmd;
-      this.showVerificationForm = false;
-      this.success = true;
     }
   }
 };

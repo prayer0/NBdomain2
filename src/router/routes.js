@@ -25,6 +25,26 @@ const routes = [
         component: () => import('pages/regSuccess')
       },
       {
+        path: '/help',
+        name: 'help',
+        component: () => import('pages/help')
+      },
+      {
+        path: '/brand',
+        name: 'brand',
+        component: () => import('pages/brand')
+      },
+      {
+        path: '/brand1',
+        name: 'brand1',
+        component: () => import('pages/brand1')
+      },
+      {
+        path: '/brand_pay',
+        name: 'brandPay',
+        component: () => import('pages/brand_pay')
+      },
+      {
         path: '/auction',
         name: 'auction',
         component: () => import('pages/auction')

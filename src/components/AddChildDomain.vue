@@ -46,7 +46,7 @@ export default {
   methods: {
     handleSave() {
       let { key, val } = this;
-      let kv = {};
+      /*let kv = {};
       kv[key]=val;
       this.$store.commit("global/setPayCmd", {
         cmd: "key",
@@ -57,7 +57,12 @@ export default {
         price:0,
         action:"notify",
         cmd_attrib:kv
-      });
+      });*/
+      this.$store.commit("global/setPayCmd", {
+        domain:this.curDomain.domain,
+        cmd: "key",
+        kv:{[key]:val}
+      })
       this.$emit("hideAddChildDomain");
     }
   }

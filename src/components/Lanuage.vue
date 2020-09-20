@@ -34,9 +34,9 @@ export default {
   watch: {
     lang(lang) {
       this.$i18n.locale = lang.value;
-      import(`quasar/lang/${lang.value}`).then(language => {
+      /*import(`quasar/lang/${lang.value}`).then(language => {
         this.$q.lang.set(language.default);
-      });
+      }); */
     }
   }
 };

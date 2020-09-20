@@ -6,15 +6,15 @@
 
     <q-card-section>
       <q-tabs v-model="tab" no-caps class="text-primary">
-        <q-tab name="transfer" :label="$t('message.transfer')" />
-        <q-tab name="accept" :label="$t('message.receive')" />
+        <q-tab name="sell" :label="$t('message.sell')" />
+        <q-tab name="buy" :label="$t('message.buy')" />
       </q-tabs>
       <q-tab-panels v-model="tab" animated transition-prev="jump-up" transition-next="jump-up">
-        <q-tab-panel name="transfer" class="q-mb-md">
+        <q-tab-panel name="sell" class="q-mb-md">
           <q-input
             class="q-mb-md"
             v-model="receiver"
-            :label="$t('message.receiverAddress')"
+            :label="$t('message.receiverDomain')"
             outlined
             stack-label
             :rules="[val => !!val || 'Field is required']"
@@ -42,7 +42,7 @@
           <div class="text-negative q-mb-md">{{terr}}</div>
         </q-tab-panel>
 
-        <q-tab-panel name="accept">
+        <q-tab-panel name="buy">
           <q-input
             v-model="txHash"
             :label="$t('message.transactionTX')"
@@ -82,7 +82,7 @@ export default {
   name: "TransferForm",
   data() {
     return {
-      tab: "transfer",
+      tab: "sell",
       receiver: null,
       askedPrice: null,
       txHash: null,
@@ -150,7 +150,7 @@ export default {
     async handleSubmit() {
       const { tab } = this;
       console.log(tab);
-      if (tab === "transfer") {
+      if (tab === "sell") {
         const { receiver, askedPrice, expireDate } = this;
         if (!receiver || !askedPrice || !expireDate) {
           this.terr = "Please fill the form";
@@ -158,22 +158,16 @@ export default {
         }
         const d1 = new Date(expireDate);
         this.$store.commit("global/setPayCmd", {
-          action: "notify",
+          cmd: "sell",
           product: "NBdomain",
-          detail: "Transfer:" + this.curDomain.domain,
+          domain:this.curDomain.domain,
+          detail: "Sell:" + this.curDomain.domain,
           broadcast: true,
-          price: askedPrice,
-          user: this.curDomain.pubKey,
-          data: [
-            this.$tool.getConfig(this.curDomain.tld).protocol,
-            this.curDomain.nid,
-            "transfer",
-            JSON.stringify({
+          sell_info: {
               buyer: receiver,
-              askedPrice: askedPrice,
-              tsExpire: d1.getTime()
-            })
-          ],
+              price: askedPrice,
+              expire: d1.getTime()
+            },
           callback: this.payResult
         });
 

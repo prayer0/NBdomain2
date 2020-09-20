@@ -88,7 +88,7 @@ export default {
         {
           icon: "help",
           label: "message.help",
-          to: "/dns",
+          to: "/help",
           separator: false
         }
       ]

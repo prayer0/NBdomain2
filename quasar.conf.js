@@ -87,7 +87,7 @@ module.exports = function (ctx) {
     // target https://manage.nbdomain.com/node/?p=1&nid=
     devServer: {
       https: false,
-      port: 8080,
+      port: 8081,
       open: true, // opens browser window automatically
       host: '0.0.0.0',
       proxy: { //配置自动启动浏览器

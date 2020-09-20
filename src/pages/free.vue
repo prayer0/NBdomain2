@@ -6,11 +6,10 @@
         <img src="../assets/NB-Logo-64.png" />
         <p v-if="false" class="text-primary text-h6 text-weight-bold">{{ $t('message.freeDomain') }}</p>
 
-        
         <div class="text-primary text-weight-bold text-body2 q-mb-md">{{ $t('message.domaindes') }}</div>
       </div>
     </div>
-    <div class="row justify-center ">
+    <div class="row justify-center">
       <div class="row justify-around no-wrap text-center" style="max-width:1000px">
         <q-card flat bordered class="q-ma-sm card">
           <q-card-section>
@@ -40,42 +39,50 @@
         </q-card>
       </div>
     </div>
-      <div class="row justify-center">
-        <q-card flat bordered class="q-ma-sm note">
-          <q-card-section>
-            <p class="text-secondary text-left text-body2 text-weight-bold ">{{ $t('message.ruleTitle') }}</p>
-            <p class="text-secondary text-left text-body2">{{ $t('message.freeRule1') }}</p>
-            <p class="text-secondary text-left text-body2">{{ $t('message.freeRule2') }}</p>
-            <p class="text-negative text-left text-body2">{{ $t('message.freeRule3') }}</p>
-            <p class="text-secondary text-left text-body2">{{ $t('message.freeRule4') }}</p>
-            <p class="text-secondary text-left text-body2">{{ $t('message.freeRule5') }}</p>
-            <q-btn color="primary" padding="xs xl" :label="$t('message.personalDomain')" no-caps @click="$router.push('/')"/>
-          </q-card-section>
-        </q-card>
-      </div>
-       <div class="row justify-center ">
+    <div class="row justify-center">
+      <q-card flat bordered class="q-ma-sm note">
+        <q-card-section>
+          <p
+            class="text-secondary text-left text-body2 text-weight-bold"
+          >{{ $t('message.ruleTitle') }}</p>
+          <p class="text-secondary text-left text-body2">{{ $t('message.freeRule1') }}</p>
+          <p class="text-secondary text-left text-body2">{{ $t('message.freeRule2') }}</p>
+          <p class="text-negative text-left text-body2">{{ $t('message.freeRule3') }}</p>
+          <p class="text-secondary text-left text-body2">{{ $t('message.freeRule4') }}</p>
+          <p class="text-secondary text-left text-body2">{{ $t('message.freeRule5') }}</p>
+          <q-btn
+            color="primary"
+            padding="xs xl"
+            :label="$t('message.personalDomain')"
+            no-caps
+            @click="$router.push('/')"
+          />
+        </q-card-section>
+      </q-card>
+    </div>
+    <div class="row justify-center">
       <div class="q-pa-md row justify-around">
-          <q-btn
-            unelevated
-            class="q-mx-md"
-            color="primary"
-            :disable="noApply"
-            :loading="applying"
-            :label="$t('message.freeapply')"
-            @click="doApply"
-            no-caps
-          />
-          <q-btn
-            unelevated
-            outline
-            color="primary"
-            :label="$t('message.check')"
-            @click="onCheck"
-            no-caps
-          />
-        </div>
-       </div>
-    
+        <q-btn
+          unelevated
+          class="q-mx-md"
+          color="primary"
+          :disable="noApply"
+          :loading="applying"
+          :label="$t('message.freeapply')"
+          @click="doApply"
+          no-caps
+        />
+        <q-btn
+          unelevated
+          outline
+          color="primary"
+          :label="$t('message.check')"
+          @click="onCheck"
+          no-caps
+        />
+      </div>
+    </div>
+
     <!------支付------->
     <q-dialog v-model="showPayForm" persistent>
       <pay-form @closePayForm="closePayForm" />
@@ -88,56 +95,82 @@ import PayForm from "../components/PayForm";
 export default {
   name: "FreeDomain",
   components: {
-    "pay-form": PayForm
+    "pay-form": PayForm,
   },
   data() {
     return {
       showPayForm: false,
       apply_tld: "test",
       noApply: false,
-      applying: false
+      applying: false,
     };
   },
   methods: {
-    async getIDResult(result){
-      if (result.code != 0 && result.code!=100){
+    async getIDResult(result) {
+      if (result.code != 0 && result.code != 100) {
         this.$q.notify(result.message);
         return;
-      } 
+      }
       const pubkey = this.$tool.getIdentity(result.rawtx);
-      console.log("pubKey=",pubkey);
-      if(pubkey){
+      console.log("pubKey=", pubkey);
+      if (pubkey) {
         const address = pubkey.toAddress().toString();
-        console.log("address=",address);
+        console.log("address=", address);
         const res = await this.$tool.get_domains_by_address(address);
-          let msg = this.$t("message.nodomain");
-          for (let i = 0; i < res.obj.length; i++) {
-            const e = res.obj[i];
-            if (i == 0) msg = "";
-            msg += e.nid + "." + e.tld + "  ";
-          }
-          this.$q.dialog({
-            title: this.$t("message.yourDomain"),
-            message: msg
-          });
+        let msg = this.$t("message.nodomain");
+        for (let i = 0; i < res.obj.length; i++) {
+          const e = res.obj[i];
+          if (i == 0) msg = "";
+          msg += e.nid + "." + e.tld + "  ";
+        }
+        this.$q.dialog({
+          title: this.$t("message.yourDomain"),
+          message: msg,
+        });
       }
     },
-    async PayResult(result) {   
+    async PayResult(result) {
+      console.log("freedomain result:", result);
+      this.noApply = false;
+      this.applying = false;
+      if (result.code != 0) {
+        this.$q.notify(result.message);
+        return;
+      }
+      if (result.code == 0) {
+        result = await this.$tool.applyFreeDomain(result);
+        console.log("applyFreeDomain result");
+        console.log(result);
+      }
+      if (result.code == 0) {
+        const domain = result.domain;
+        this.$router.push("/regok?domain=" + domain);
+      } else {
+        this.$q.notify(result.message);
+        return;
+      }
+    },
+    async PayResult1(result) {
       console.log(result);
       this.noApply = false;
       this.applying = false;
-      if (result.code != 0 && result.code!=100){
+      if (result.code != 0 && result.code != 100) {
         this.$q.notify(result.message);
         return;
-      } 
-      if(result.code==0){ //from wallet
-          result = await this.$tool.applyFreeDomain(result);
-          console.log("applyFreeDomain result");
-          console.log(result);
       }
-     
-      const domain = result.domain;
-      this.$router.push("/regok?domain="+domain);
+      if (result.code == 0) {
+        //from vbox
+        result = await this.$tool.applyFreeDomain(result);
+        console.log("applyFreeDomain result");
+        console.log(result);
+      }
+      if (result.code == 0) {
+        const domain = result.domain;
+        this.$router.push("/regok?domain=" + domain);
+      } else {
+        this.$q.notify(result.message);
+        return;
+      }
     },
     showPay() {
       this.showPayForm = true;
@@ -152,44 +185,74 @@ export default {
           message: "Please Input Your wallet address:",
           prompt: {
             model: "",
-            type: "text" // optional
+            type: "text", // optional
           },
           cancel: true,
-          persistent: true
+          persistent: true,
         })
-        .onOk(async data => {
-            const config = this.$tool.getConfig(this.apply_tld);
-            console.log(config);
-            this.$store.commit("global/setPayCmd", {
-              cmd: "",
-              product: this.$t("message.freedomain"),
-              user: "any",
-              detail: this.$t("message.applyfreedomain"),
-              broadcast: false,
-              price: 1000000,
-              action: "applyFree",
-              to: [{ address: data, value: 1000000 }],
-              app_data: JSON.stringify({ tld: this.apply_tld }),
-              callback: this.PayResult
-            });
-            this.noApply = true;
-            this.applying = true;
-            this.showPay();
+        .onOk(async (data) => {
+          const config = this.$tool.getConfig(this.apply_tld);
+          console.log(config);
+          this.$store.commit("global/setPayCmd", {
+            cmd: "pay",
+            product: this.$t("message.freedomain"),
+            //user: "any",
+            detail: this.$t("message.applyfreedomain"),
+            broadcast: true,
+            to: [{ address: data, value: 1000000 },{ "protocol": "bitIdentity" }],
+            app_data: JSON.stringify({ tld: this.apply_tld }),
+            callback: this.PayResult,
+          });
+          this.noApply = true;
+          this.applying = true;
+          this.showPay();
         });
     },
-    onCheck(){
+    doApply1() {
+      this.$q
+        .dialog({
+          title: "Input",
+          message: "Please Input Your wallet address:",
+          prompt: {
+            model: "",
+            type: "text", // optional
+          },
+          cancel: true,
+          persistent: true,
+        })
+        .onOk(async (data) => {
+          const config = this.$tool.getConfig(this.apply_tld);
+          console.log(config);
+          this.$store.commit("global/setPayCmd", {
+            cmd: "",
+            product: this.$t("message.freedomain"),
+            user: "any",
+            detail: this.$t("message.applyfreedomain"),
+            broadcast: false,
+            price: 1000000,
+            action: "applyFree",
+            to: [{ address: data, value: 1000000 }],
+            app_data: JSON.stringify({ tld: this.apply_tld }),
+            callback: this.PayResult,
+          });
+          this.noApply = true;
+          this.applying = true;
+          this.showPay();
+        });
+    },
+    onCheck() {
       this.$store.commit("global/setPayCmd", {
-              cmd: "",
-              product: this.$t("message.freedomain"),
-              user: "any",
-              detail: this.$t("message.getID"),
-              broadcast: false,
-              price: 600,
-              to:[],
-              action: "getID",
-              callback: this.getIDResult
-            });
-            this.showPay();
+        cmd: "pay",
+        product: this.$t("message.freedomain"),
+        user: "any",
+        detail: this.$t("message.getID"),
+        broadcast: true,
+        price: 600,
+        to: [{ "protocol": "bitIdentity" }],
+        action: "getID",
+        callback: this.getIDResult,
+      });
+      this.showPay();
     },
     doCheck() {
       this.$q
@@ -198,12 +261,12 @@ export default {
           message: "Please Input Address:",
           prompt: {
             model: "",
-            type: "text" // optional
+            type: "text", // optional
           },
           cancel: true,
-          persistent: true
+          persistent: true,
         })
-        .onOk(async data => {
+        .onOk(async (data) => {
           const res = await this.$tool.get_domains_by_address(data);
           let msg = "no domain";
           for (let i = 0; i < res.obj.length; i++) {
@@ -213,7 +276,7 @@ export default {
           }
           this.$q.dialog({
             title: "Result",
-            message: msg
+            message: msg,
           });
         })
         .onCancel(() => {
@@ -222,17 +285,17 @@ export default {
         .onDismiss(() => {
           // console.log('I am triggered on both OK and Cancel')
         });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss">
-.card{
-  width:160px;
-  border-color:$secondary;
+.card {
+  width: 160px;
+  border-color: $secondary;
 }
-.note{
-  width:690px;
-  border-color:$secondary;
+.note {
+  width: 690px;
+  border-color: $secondary;
 }
 </style>

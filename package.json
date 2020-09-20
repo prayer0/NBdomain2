@@ -16,7 +16,8 @@
     "axios": "^0.18.1",
     "bitidentity": "^1.0.21",
     "bsv": "^1.5.3",
-    "nblib": "^1.0.7",
+    "core-js": "^2.6.5",
+    "nblib": "1.0.35",
     "qrcode.vue": "^1.7.0",
     "quasar": "^1.11.1",
     "run-bitbus": "^1.0.5",
@@ -30,13 +31,19 @@
     "eslint-loader": "^3.0.3",
     "eslint-plugin-vue": "^6.1.2"
   },
+  "dependenciesMeta": {
+    "core-js": {
+      "unplugged": true
+    }
+  },
   "engines": {
     "node": ">= 10.18.1",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   },
   "browserslist": [
-    "last 1 version, not dead, ie >= 11"
+    "> 1%",
+    "last 2 versions"
   ],
   "resolutions": {
     "@babel/parser": "7.7.5"

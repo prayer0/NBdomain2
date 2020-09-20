@@ -90,16 +90,17 @@ export default {
           }
           this.$store.commit("global/setPayCmd", {
             cmd: "pay",
-            price: Math.trunc(price),
+            //price: Math.trunc(price),
             product:  this.$t("message.bidfor") + item.domain,
             detail: this.$t("message.bidfor") + item.domain,
-            user: "any",
-            action:"placeOrder",
-            data: ["1Ngh1SvpFjk1GyttichAyLvj9DLW36kssQ", item.domain],
+            //action:"placeOrder",            
             to: [
-              { address: "1Ngh1SvpFjk1GyttichAyLvj9DLW36kssQ", value: Math.trunc(price) },
-              { protocol: "refund"}
+              {data: ["1Ngh1SvpFjk1GyttichAyLvj9DLW36kssQ", item.domain]},
+              {protocol:"bitIdentity"},
+              {address: "1Ngh1SvpFjk1GyttichAyLvj9DLW36kssQ", value: Math.trunc(price) },
+              {protocol: "refund"}
             ],
+            broadcast:false,
             app_data:JSON.stringify({price:price,domain:item.domain}),
             callback: this.PayResult
           });

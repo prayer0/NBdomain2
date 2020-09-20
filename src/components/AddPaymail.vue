@@ -99,7 +99,7 @@ export default {
       let name = this.uname;
       let attrib = {};
       attrib[name] = userObj;
-      this.$store.commit("global/setPayCmd", {
+      /*this.$store.commit("global/setPayCmd", {
         cmd: "user",
         price: 0,
         product: "Update Paymail+",
@@ -108,7 +108,12 @@ export default {
         broadcast: true,
         action:"notify",
         cmd_attrib: attrib
-      });
+      }); */
+      this.$store.commit("global/setPayCmd", {
+        domain:this.curDomain.domain,
+        cmd: "user",
+        kv:{[name]:userObj}
+      })
       this.$emit("closePaymail");
     }
   }
